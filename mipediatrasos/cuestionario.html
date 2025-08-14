@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Descubrimiento - MiPediatraSOS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Paleta de Colores de la Marca MiPediatraSOS */
+        :root {
+            --brand-teal: #00a99d;
+            --brand-pink: #f781be;
+            --brand-teal-dark: #008a7f;
+            --brand-pink-light: #fce4f3;
+            --brand-gold: #b48c2c;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --bg-light: #fdfdff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .form-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-section:hover {
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--brand-teal);
+            margin-bottom: 0.75rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-light);
+            background-color: #f9fafb;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--brand-pink);
+            box-shadow: 0 0 0 3px rgba(247, 129, 190, 0.2);
+            background-color: white;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .question-group {
+            margin-bottom: 2rem;
+        }
+
+        .action-button {
+            background-color: var(--brand-pink);
+            color: white;
+            font-weight: 600;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button:hover {
+            background-color: #f46eab;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden-section {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--brand-pink-light);
+            border-radius: 0.5rem;
+            border: 1px dashed var(--brand-pink);
+        }
+
+        .checkbox-custom:checked {
+            background-color: var(--brand-teal);
+            border-color: var(--brand-teal);
+        }
+
+        .radio-custom:checked {
+            background-color: var(--brand-teal);
+        }
+    </style>
+</head>
+
+<body class="p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+
+        <header class="text-center mb-12 flex flex-col items-center">
+            <!-- Logo del Cliente -->
+            <!-- Asegúrate de que el archivo "logo.png" esté en la misma carpeta que este archivo HTML -->
+            <img src="logo.png" alt="Logo MiPediatraSOS" class="h-32 w-auto mb-4">
+
+            <h1 class="text-4xl font-bold text-gray-800">Cuestionario de Descubrimiento</h1>
+            <p class="text-xl text-gray-600 mt-2">Proyecto Web para Dra. Maria Diaz - "MiPediatraSOS"</p>
+        </header>
+
+        <div class="bg-teal-50 border-l-4 border-teal-500 text-teal-800 p-4 rounded-r-lg mb-8" role="alert">
+            <p class="font-bold">Estimada Dra. Diaz,</p>
+            <p>La información que nos proporcione aquí es fundamental para definir la estrategia digital y la estructura
+                de su nuevo
+                sitio web, garantizando que se alinee perfectamente con sus metas profesionales.</p>
+        </div>
+
+        <form id="discovery-form">
+            <!-- Sección 1: Sobre Usted y su Práctica -->
+            <div class="form-section" id="seccion-1">
+                <h2 class="section-title">1. Esencia y Visión de su Práctica</h2>
+                <p class="section-subtitle">Comencemos por entender el corazón de su práctica profesional.</p>
+
+                <div class="question-group">
+                    <label class="form-label" for="servicios-destacados">De todos sus servicios, ¿cuáles son los 3 más
+                        importantes que le gustaría destacar en la página de inicio?</label>
+                    <textarea id="servicios-destacados" class="form-textarea"
+                        placeholder="Ej: 1. Consejería de Lactancia, 2. Emergencias, 3. Cuidado del recién nacido..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="servicio-lactancia">Notamos que es Promotora y Consejera de Lactancia
+                        Humana. ¿Cómo le gustaría que presentemos este servicio tan especial para que resuene con las
+                        madres?</label>
+                    <textarea id="servicio-lactancia" class="form-textarea"
+                        placeholder="Describa el enfoque, el tono, o cualquier detalle que considere importante..."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="mision-valores">El nombre "MiPediatraSOS" ya transmite cercanía. Si
+                        tuviera que describir la misión de su práctica en una frase, ¿cuál sería?</label>
+                    <input type="text" id="mision-valores" class="form-input"
+                        placeholder="Ej: Acompañar a las familias con calidez y profesionalismo...">
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="diferenciador">¿Qué cree que la hace única en su enfoque pediátrico?
+                        ¿Qué le gustaría que un padre o una madre sintiera sobre usted al visitar su web?</label>
+                    <input type="text" id="diferenciador" class="form-input"
+                        placeholder="Ej: Cercanía, confianza, que estoy aquí para ellos...">
+                </div>
+            </div>
+
+            <!-- Sección 2: Objetivos del Sitio Web -->
+            <div class="form-section" id="seccion-2">
+                <h2 class="section-title">2. Objetivos del Sitio Web</h2>
+                <p class="section-subtitle">Definamos juntos las metas principales de su nueva plataforma digital.</p>
+
+                <div class="question-group">
+                    <label class="form-label" for="objetivo-principal">¿Cuál es el objetivo MÁS importante que espera
+                        lograr con este sitio web?</label>
+                    <input type="text" id="objetivo-principal" class="form-input"
+                        placeholder="Ej: Atraer más pacientes, profesionalizar mis asesorías online...">
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label">Cuando una persona visite su web, ¿qué acciones le gustaría que realizara?
+                        (Ordene por importancia, siendo 1 la más importante).</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" max="5" class="form-input w-16 text-center" id="orden-agendar">
+                            <label for="orden-agendar" class="text-gray-700">Agendar una "Asesoría Online"</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" max="5" class="form-input w-16 text-center"
+                                id="orden-emergencia">
+                            <label for="orden-emergencia" class="text-gray-700">Entender cómo proceder en caso de
+                                "Emergencia"</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" max="5" class="form-input w-16 text-center"
+                                id="orden-contacto">
+                            <label for="orden-contacto" class="text-gray-700">Enviar un mensaje por un formulario de
+                                contacto</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" max="5" class="form-input w-16 text-center"
+                                id="orden-direccion">
+                            <label for="orden-direccion" class="text-gray-700">Encontrar fácilmente la dirección y el
+                                teléfono</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" max="5" class="form-input w-16 text-center" id="orden-blog">
+                            <label for="orden-blog" class="text-gray-700">Leer sus "Consejos" en el blog</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 3: Público Objetivo -->
+            <div class="form-section" id="seccion-3">
+                <h2 class="section-title">3. Sus Pacientes y Familias</h2>
+                <p class="section-subtitle">Conectemos con las familias a las que sirve, para hablar su mismo idioma.
+                </p>
+
+                <div class="question-group">
+                    <label class="form-label" for="perfil-familia">¿Podría describir a las familias que atiende?</label>
+                    <textarea id="perfil-familia" class="form-textarea"
+                        placeholder="Piense en si son padres primerizos, sus principales preocupaciones, qué información valoran más, etc."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="preguntas-frecuentes">¿Cuáles son las 5 preguntas que más le repiten
+                        los padres en la consulta o por WhatsApp?</label>
+                    <textarea id="preguntas-frecuentes" class="form-textarea"
+                        placeholder="Estas preguntas son oro para su web. Ej: ¿Qué hago si mi hijo tiene fiebre?, ¿Cuándo debo vacunarlo?..."></textarea>
+                </div>
+            </div>
+
+            <!-- Sección 4: Diseño y Estética -->
+            <div class="form-section" id="seccion-4">
+                <h2 class="section-title">4. Identidad Visual y Estilo</h2>
+                <p class="section-subtitle">Definamos la estética y la sensación que transmitirá su sitio web.</p>
+
+                <div class="question-group">
+                    <label class="form-label" for="tres-adjetivos">Si su sitio web fuera un espacio físico, ¿cómo le
+                        gustaría que se sintieran los padres al entrar? (Elija tres palabras)</label>
+                    <input type="text" id="tres-adjetivos" class="form-input"
+                        placeholder="Ej: Tranquilo, moderno, confiable...">
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label">En cuanto a los colores y el logo:</label>
+                    <div class="space-y-3 mt-2">
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio"
+                                name="identidad-visual" value="nueva" class="h-4 w-4 radio-custom focus:ring-pink-500">
+                            Quiero explorar una nueva paleta de colores.</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio"
+                                name="identidad-visual" value="existente"
+                                class="h-4 w-4 radio-custom focus:ring-pink-500" checked> Usar la identidad de mi marca
+                            actual (logo y colores).</label>
+                    </div>
+                    <div id="instruccion-marca" class="hidden-section">
+                        <p class="font-semibold" style="color: var(--brand-teal-dark);">¡Excelente!</p>
+                        <p class="text-gray-600">Por favor, adjunte su logo (preferiblemente en formato .png o .svg) y
+                            cualquier documento de marca que tenga en el mismo correo electrónico donde pegará el
+                            resumen de este cuestionario.</p>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="inspiracion-visual">Por favor, comparta los enlaces (URLs) de 2 o 3
+                        sitios web que le gusten.</label>
+                    <textarea id="inspiracion-visual" class="form-textarea"
+                        placeholder="No importa si no son del área médica. ¿Qué le gusta de ellos?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label" for="a-evitar">¿Hay algún sitio web que NO le guste? ¿Qué es lo que le
+                        disgusta de él?</label>
+                    <textarea id="a-evitar" class="form-textarea"
+                        placeholder="El enlace y una breve explicación nos ayuda a entender qué evitar."></textarea>
+                </div>
+            </div>
+
+            <!-- Sección 5: Contenido y Páginas -->
+            <div class="form-section" id="seccion-5">
+                <h2 class="section-title">5. Contenido y Estructura Web</h2>
+                <p class="section-subtitle">Organicemos la información de manera clara e intuitiva para los padres.</p>
+
+                <div class="question-group">
+                    <label class="form-label">Basado en sus servicios, hemos pensado en una estructura inicial. ¿Le
+                        parece bien? ¿Cree que falta algo importante?</label>
+                    <p class="text-gray-600 bg-gray-100 p-4 rounded-md border border-gray-200">Inicio, Sobre Mí,
+                        Servicios (con apartados para Lactancia, Niño Sano, etc.), Asesorías Online, Blog de Consejos,
+                        Emergencias y Contacto.</p>
+                    <textarea id="estructura-sitio" class="form-textarea mt-4"
+                        placeholder="Si está de acuerdo, puede dejarlo en blanco o añadir cualquier sugerencia."></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="form-label">¿Le gustaría que adaptemos algunas de sus publicaciones de Instagram
+                        ("Consejos", "Semana del Premuro") como los primeros artículos para su nuevo blog?</label>
+                    <div class="flex gap-6 mt-2">
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio"
+                                name="adaptar-contenido" value="si" class="h-4 w-4 radio-custom focus:ring-pink-500">
+                            Sí, me parece una excelente idea.</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio"
+                                name="adaptar-contenido" value="no" class="h-4 w-4 radio-custom focus:ring-pink-500">
+                            No, prefiero crear contenido nuevo.</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 6: Funcionalidades -->
+            <div class="form-section" id="seccion-6">
+                <h2 class="section-title">6. Funcionalidades Esenciales</h2>
+                <p class="section-subtitle">Confirmemos las herramientas digitales que harán su sitio web más eficiente.
+                </p>
+                <div class="question-group">
+                    <label class="form-label">A continuación, listamos algunas funcionalidades comunes. Por favor,
+                        marque las que considere más importantes para su sitio web:</label>
+                    <div class="space-y-3 mt-2">
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-form" checked
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Formulario de contacto
+                            directo a su email.</label>
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-mapa" checked
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Mapa interactivo con la
+                            ubicación de su consulta.</label>
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-redes" checked
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Enlaces directos a su
+                            perfil de Instagram.</label>
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-blog" checked
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Sección de Blog para sus
+                            "Consejos".</label>
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-citas" checked
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Sistema para agendar y
+                            gestionar sus "Asesorías Online".</label>
+                        <label
+                            class="flex items-center gap-3 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-pink-light hover:border-pink-200 transition-colors"><input
+                                type="checkbox" id="func-chatbot"
+                                class="h-5 w-5 rounded checkbox-custom focus:ring-pink-500"> Un Asistente Virtual
+                            (chatbot) para guiar en emergencias y responder preguntas frecuentes 24/7.</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Botón de Acción -->
+        <div class="text-center my-12">
+            <button id="generate-summary-btn" type="button" class="action-button text-lg">
+                Finalizar y Enviar por WhatsApp
+            </button>
+        </div>
+
+        <footer class="text-center text-gray-500 mt-16 mb-8 text-sm">
+            <a href="https://elsantin-labs.vercel.app/" target="_blank" rel="noopener noreferrer"
+                class="hover:opacity-80 transition-opacity">
+                © 2025
+                <span style="color: var(--brand-gold); font-weight: 600;">{</span><span
+                    style="color: var(--text-light); font-weight: 600;">elsantin</span><span
+                    style="color: var(--brand-gold); font-weight: 600;">Labs</span><span
+                    style="color: var(--brand-gold); font-weight: 600;">}</span>.
+                Desarrollo Web desde la Isla de Margarita, Venezuela. Todos los derechos reservados.
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        // LÓGICA PARA MOSTRAR/OCULTAR INSTRUCCIÓN DE MARCA
+        const radiosIdentidad = document.querySelectorAll('input[name="identidad-visual"]');
+        const instruccionMarca = document.getElementById('instruccion-marca');
+        radiosIdentidad.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === 'existente') {
+                    instruccionMarca.style.display = 'block';
+                } else {
+                    instruccionMarca.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('generate-summary-btn').addEventListener('click', function () {
+            // Reemplaza este número con tu número de WhatsApp en formato internacional, sin '+' o '00'
+            const tuNumeroWhatsApp = '584121969544'; // Ejemplo: 58 para Venezuela + tu número
+
+            let rawSummary = "RESPUESTAS AL CUESTIONARIO DE DESCUBRIMIENTO - Dra. Maria Diaz\n";
+            rawSummary += "============================================================\n\n";
+
+            // Función auxiliar para añadir secciones
+            function addSection(title, fields) {
+                rawSummary += `*${title}*\n`;
+                fields.forEach(field => {
+                    rawSummary += `*${field.label}:* ${field.value}\n`;
+                });
+                rawSummary += "\n";
+            }
+
+            // Sección 1
+            addSection("1. Esencia y Visión de su Práctica", [
+                { label: "Servicios a destacar", value: document.getElementById('servicios-destacados').value || "N/A" },
+                { label: "Presentación del servicio de lactancia", value: document.getElementById('servicio-lactancia').value || "N/A" },
+                { label: "Misión de la práctica", value: document.getElementById('mision-valores').value || "N/A" },
+                { label: "Diferenciador y sensación deseada", value: document.getElementById('diferenciador').value || "N/A" }
+            ]);
+
+            // Sección 2
+            const orden = `
+  - Agendar Asesoría: ${document.getElementById('orden-agendar').value || 'N/A'}
+  - Proceder en Emergencia: ${document.getElementById('orden-emergencia').value || 'N/A'}
+  - Enviar Mensaje: ${document.getElementById('orden-contacto').value || 'N/A'}
+  - Encontrar Dirección: ${document.getElementById('orden-direccion').value || 'N/A'}
+  - Leer Blog: ${document.getElementById('orden-blog').value || 'N/A'}
+            `;
+            addSection("2. Objetivos del Sitio Web", [
+                { label: "Objetivo principal", value: document.getElementById('objetivo-principal').value || "N/A" },
+                { label: "Orden de acciones deseadas", value: orden }
+            ]);
+
+            // Sección 3
+            addSection("3. Sus Pacientes y Familias", [
+                { label: "Perfil de la familia", value: document.getElementById('perfil-familia').value || "N/A" },
+                { label: "Preguntas frecuentes", value: document.getElementById('preguntas-frecuentes').value || "N/A" }
+            ]);
+
+            // Sección 4
+            const identidadVisual = document.querySelector('input[name="identidad-visual"]:checked');
+            let identidadValue = (identidadVisual ? identidadVisual.value : "No respondido");
+            if (identidadVisual && identidadVisual.value === 'existente') {
+                identidadValue += " (Se enviarán los archivos de marca por correo)";
+            }
+            addSection("4. Identidad Visual y Estilo", [
+                { label: "Tres adjetivos", value: document.getElementById('tres-adjetivos').value || "N/A" },
+                { label: "Identidad visual", value: identidadValue },
+                { label: "Inspiración visual", value: document.getElementById('inspiracion-visual').value || "N/A" },
+                { label: "A evitar", value: document.getElementById('a-evitar').value || "N/A" }
+            ]);
+
+            // Sección 5
+            const adaptarContenido = document.querySelector('input[name="adaptar-contenido"]:checked');
+            addSection("5. Contenido y Estructura Web", [
+                { label: "Sugerencias a la estructura del sitio", value: document.getElementById('estructura-sitio').value || "Conforme con la estructura propuesta." },
+                { label: "Adaptar contenido de Instagram", value: (adaptarContenido ? adaptarContenido.value : "No respondido") }
+            ]);
+
+            // Sección 6
+            const funcionalidades = `
+  - Formulario de contacto: ${document.getElementById('func-form').checked ? "Sí" : "No"}
+  - Mapa interactivo: ${document.getElementById('func-mapa').checked ? "Sí" : "No"}
+  - Enlaces a redes sociales: ${document.getElementById('func-redes').checked ? "Sí" : "No"}
+  - Sección de Blog: ${document.getElementById('func-blog').checked ? "Sí" : "No"}
+  - Sistema de Citas Online: ${document.getElementById('func-citas').checked ? "Sí" : "No"}
+  - Asistente Virtual (chatbot): ${document.getElementById('func-chatbot').checked ? "Sí" : "No"}
+            `;
+            addSection("6. Funcionalidades Esenciales", [
+                { label: "Funcionalidades aprobadas", value: funcionalidades }
+            ]);
+
+            const whatsappLink = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(rawSummary)}`;
+            window.open(whatsappLink, '_blank');
+        });
+
+    </script>
+</body>
+
+</html>
